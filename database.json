@@ -2,7 +2,7 @@
     "dev": {
       "driver": "pg",
       "user": "postgres",
-      "password": "plmnko@123",
+      "password": "postgres",
       "host": "localhost",
       "database": "babbel_backend"
     }

@@ -4,11 +4,15 @@
 
 ## prerequisite
 Node.js
-Postgres
+Postgres - (should have babbel_backend db created)
 ## Installation
 
 ```bash
+$ clone the project from 'https://github.com/Parinita789/nest-node-app.git'
+$ cd nest-node-app
 $ npm install
+$ create a .env file in the root directory of the project and paste the values from .sample.env file
+$ run migration: db-migrate up initialize
 ```
 
 ## Running the app
