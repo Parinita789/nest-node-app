@@ -114,6 +114,7 @@ export class LessonController {
       if (!exisitingLesson) {
         throw new HttpException(ERRROR.LESSON.NOT_FOUND, HttpStatus.CONFLICT);
       } else {
+        // TO DO - Remove lesson id from the course
         await this.lessonService.deleteLessonById(lessonId)
         return new ResponseDto<any>(
           null,

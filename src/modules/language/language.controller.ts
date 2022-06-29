@@ -117,6 +117,7 @@ export class LanguageController {
       if (!exisitingLanguage) {
         throw new HttpException(ERRROR.LANGUAGE.NOT_FOUND, HttpStatus.NOT_FOUND);
       } else {
+        // TO DO - check all lessons of the language, mark all lessons is_deleted true before deleting the language
         await this.languageService.deleteLanguageById(languageId)
         return new ResponseDto<LanguageRequestResponse>(
           new LanguageRequestResponse(languageId),
@@ -134,6 +135,7 @@ export class LanguageController {
   async deleteAllLanguages(
     ): Promise<ResponseDto<any>> {
     try {
+      // TO DO - delete all lessons and courses before deleting languages
       await this.languageService.deleteAllLanguages()
       return new ResponseDto<LanguageRequestResponse>(
         null,

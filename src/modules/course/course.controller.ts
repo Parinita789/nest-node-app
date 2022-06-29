@@ -78,13 +78,14 @@ export class CourseController {
   ): Promise<ResponseDto<GetCoursesResponse>> {
   try {
     const result = await this.courseService.getAllCourses(getCourseRequestDto);
+    // TO DO - fetch all lessons details by id for each course
     return new ResponseDto<GetCoursesResponse>(
       new GetCoursesResponse(
         result.data.map(course => {
           return new GetCourseResponse(
             course.id,
             course.name,
-            course.lessons,
+            course.lesson_ids,
             course.user_first_name,
             course.user_last_name,
             course.active_lesson,

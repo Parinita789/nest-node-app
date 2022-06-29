@@ -49,6 +49,8 @@ export class LessonRepository {
     lessonFilter.is_deleted = false;
     const limit = parseInt(lessonFilter.limit) || CONSTANTS.DEFAULT_LIMIT;
     const offset =  limit * (parseInt(lessonFilter.page) - 1) || CONSTANTS.DEFAULT_OFFSET;
+    delete lessonFilter.limit;
+    delete lessonFilter.page;
     const lessonFilterKeys = Object.keys(lessonFilter).map(key => key = `lessons.${key}`);
 
     const searchQueryBuilder = new SearchQueryBuilder()
@@ -62,7 +64,7 @@ export class LessonRepository {
                                   'languages.name AS language_name'
                                 )
                                 .fromTable(TABLE.LESSONS)
-                                .join(TABLE.LANGUAGES, 'id')
+                                .join(TABLE.LANGUAGES, 'id', 'LEFT')
                                 .where(...lessonFilterKeys)
                                 .orderBy('lessons.created_at')
                                 .limit(limit)
@@ -73,7 +75,7 @@ export class LessonRepository {
     const totalCountQuery = new SearchQueryBuilder()
                               .select('COUNT(*)')
                               .fromTable(TABLE.LESSONS)
-                              .join(TABLE.LANGUAGES, 'id')
+                              .join(TABLE.LANGUAGES, 'id', 'LEFT')
                               .where(...lessonFilterKeys)
                               .build(); 
 

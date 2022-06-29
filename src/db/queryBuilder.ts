@@ -67,8 +67,8 @@ export class SearchQueryBuilder {
     return this;
   }
 
-  public join(tableToJoin: string, foreignKey: string) {
-    this.join_clause =  ` INNER JOIN ${tableToJoin} USING (${foreignKey})`;
+  public join(tableToJoin: string, foreignKey: string, type: string) {
+    this.join_clause =  ` ${type} JOIN ${tableToJoin} USING (${foreignKey})`;
     return this;
   }
 

@@ -124,6 +124,7 @@ export class UserController {
       if (!userExists) {
         throw new HttpException(ERRROR.USER.NOT_FOUND, HttpStatus.NOT_FOUND);
       } else { 
+        // TO DO - check courses of the users, mark all courses is_deleted true before deleting the user
         await this.userService.deleteUser(userId)
         return new ResponseDto(
           null,

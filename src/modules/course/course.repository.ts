@@ -39,6 +39,9 @@ export class CourseRepository {
     courseFilter.is_deleted = false;
     const limit = parseInt(courseFilter.limit) || CONSTANTS.DEFAULT_LIMIT;
     const offset =  limit * (parseInt(courseFilter.page) - 1) || CONSTANTS.DEFAULT_OFFSET;
+    delete courseFilter.limit;
+    delete courseFilter.page;
+
     const courseFilterKeys = Object.keys(courseFilter).map(key => key = `courses.${key}`);
 
     const searchQueryBuilder = new SearchQueryBuilder()
@@ -51,19 +54,18 @@ export class CourseRepository {
                                   'users.last_name AS user_last_name'
                                 )
                                 .fromTable(TABLE.COURSES)
-                                .join(TABLE.USERS, 'id')
+                                .join(TABLE.USERS, 'id', 'LEFT')
                                 .where(...courseFilterKeys)
                                 .orderBy('courses.created_at')
                                 .limit(limit)
                                 .skip(offset)
                                 .build(); 
-
     const data = await this.pool.query(searchQueryBuilder, [...Object.values(courseFilter)]);
-
+    
     const totalCountQuery = new SearchQueryBuilder()
                               .select('COUNT(*)')
                               .fromTable(TABLE.COURSES)
-                              .join(TABLE.USERS, 'id')
+                              .join(TABLE.USERS, 'id', 'LEFT')
                               .where(...courseFilterKeys)
                               .build(); 
     
@@ -76,8 +78,6 @@ export class CourseRepository {
     }
     return result;                        
   }
-
-
 
   public async deleteCourseById(courseId: number): Promise<any> {
     const updateQuery = new UpdateQueryBuilder()

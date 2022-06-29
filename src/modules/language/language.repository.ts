@@ -45,6 +45,8 @@ export class LanguageRepository {
     languageFilter.is_deleted = false;
     const limit = parseInt(languageFilter.limit) || CONSTANTS.DEFAULT_LIMIT;
     const offset =  limit * (parseInt(languageFilter.page) - 1) || CONSTANTS.DEFAULT_OFFSET;
+    delete languageFilter.limit;
+    delete languageFilter.page;
 
     const searchQueryBuilder = new SearchQueryBuilder()
                                 .select(
@@ -56,6 +58,8 @@ export class LanguageRepository {
                                 .fromTable(TABLE.LANGUAGES)
                                 .where(...Object.keys(languageFilter))
                                 .orderBy('created_at')
+                                .limit(limit)
+                                .skip(offset)
                                 .build();
 
     const data = await this.pool.query(searchQueryBuilder, [...Object.values(languageFilter)]);
