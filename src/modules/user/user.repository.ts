@@ -53,7 +53,6 @@ export class UserRepository {
                           .fromTable(TABLE.USERS)
                           .where('id')
                           .build();
-    console.log(" searchQuery >>> ", searchQuery, userId)
     const result = await this.pool.query(searchQuery, [userId]);                
     return result.rows[0];
   }
