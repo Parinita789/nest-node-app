@@ -1,0 +1,5 @@
+export const CONSTANTS = {
+  DEFAULT_LIMIT: 10,
+  DEFAULT_OFFSET: 0,
+  SALT_ROUNDS: 10
+}
