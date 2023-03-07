@@ -12,7 +12,7 @@ export class DatabaseService {
     private readonly databaseConfigService: DatabaseConfigService,
   ) {
     this.pool = new Pool(this.connectionOptions);
-  }  
+  }
 
 }
   
